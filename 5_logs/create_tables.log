@@ -1,0 +1,36 @@
+2025-01-11 14:40:22,834 - INFO - Starting table creation process.
+2025-01-11 14:40:23,620 - INFO - Executed: CREATE TABLE Asiakkaat (
+                asiakas_id SERIAL PRIMARY KEY,
+                nimi VARCHAR(100) NOT NULL,
+                sähköposti VARCHAR(100) NOT NULL UNIQUE,
+                puhelin VARCHAR(20),
+                osoite TEXT,
+                rekisteröitymispäivä TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+2025-01-11 14:40:23,682 - INFO - Executed: CREATE TABLE Tilaukset (
+                tilaus_id SERIAL PRIMARY KEY,
+                asiakas_id INT REFERENCES Asiakkaat(asiakas_id),
+                tilauspäivä TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                kokonaissumma DECIMAL(10, 2)
+            );
+2025-01-11 14:40:23,729 - INFO - Executed: CREATE TABLE Tuotteet (
+                tuote_id SERIAL PRIMARY KEY,
+                nimi VARCHAR(100) NOT NULL,
+                hinta DECIMAL(10, 2) NOT NULL,
+                kategoria VARCHAR(50),
+                varastosaldo INT DEFAULT 0
+            );
+2025-01-11 14:40:23,745 - INFO - Executed: CREATE TABLE TilauksenRivit (
+                rivi_id SERIAL PRIMARY KEY,
+                tilaus_id INT REFERENCES Tilaukset(tilaus_id),
+                tuote_id INT REFERENCES Tuotteet(tuote_id),
+                määrä INT NOT NULL,
+                rivisumma DECIMAL(10, 2) NOT NULL
+            );
+2025-01-11 14:40:23,761 - INFO - Executed: CREATE TABLE Varasto (
+                varasto_id SERIAL PRIMARY KEY,
+                tuote_id INT REFERENCES Tuotteet(tuote_id),
+                saatavilla INT DEFAULT 0,
+                päivitetty TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+2025-01-11 14:40:23,761 - INFO - All tables created successfully.

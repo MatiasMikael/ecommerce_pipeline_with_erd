@@ -1,0 +1,2 @@
+2025-01-11 14:38:41,335 - INFO - Starting database creation process.
+2025-01-11 14:38:41,713 - WARNING - Database 'ecommerce_pipeline_with_erd' already exists.
